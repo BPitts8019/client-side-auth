@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import api from "../utils/api";
 
-function Signin () {
+function Signin ({history}) {
    const [error, setError] = useState();
    const [data, setData] = useState({
       email: "",
@@ -23,6 +23,7 @@ function Signin () {
          .then(response => {
             // console.log(response.data);
             localStorage.setItem("token", response.data.token);
+            history.push("/account");
          })
          .catch(err => {
             setError(err.response.data.message);
