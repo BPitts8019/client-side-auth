@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
+import axios from "axios";
 
 function Signin () {
+   const [error, setError] = useState();
    const [data, setData] = useState({
       email: "",
       password: ""
@@ -13,8 +15,27 @@ function Signin () {
       });
    };
 
+   const handleSubmit = event => {
+      event.preventDefault();
+
+      axios
+         .post("http://localhost:8080/signin", data)
+         .then(response => {
+            // console.log(response.data);
+            localStorage.setItem("token", response.data.token);
+         })
+         .catch(err => {
+            setError(err.response.data.message);
+         })
+   };
+
    return (
-      <form>
+      <form onSubmit={handleSubmit}>
+         {
+            error
+            ?  <p className="error">{error}</p>
+            : null
+         }
          <input type="email" name="email" placeholder="Email" onChange={handleChange} value={data.email} />
          <input type="password" name="password" placeholder="Password" onChange={handleChange} value={data.password} />
 
