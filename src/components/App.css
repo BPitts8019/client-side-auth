@@ -41,6 +41,11 @@ a {
 	color: darkblue;
 }
 
+a.active {
+   font-weight: bolder;
+   font-size: larger;
+}
+
 input {
 	display: block;
 	padding: 10px;
